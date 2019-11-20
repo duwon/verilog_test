@@ -1,52 +1,42 @@
-# Prerequisites
-*.d
+!README.md
+!.gitignore
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+GUI/
+Debug/
+Zybo.cache/
+Zybo.runs/
+Zybo.sim/
+Packages/
+.jobs/
+.Xil/
+.vscode/
 
-# Linker output
-*.ilk
-*.map
-*.exp
+*.sdk/.metadata
+*.sdk/**/*RemoteSystemsTempFiles
+*.sdk/**/*Debug/*
+*.sdk/**/*Release
+*.sdk/**/*webtalk
+*.sdk/*webtalk/
+*.sdk/.sdk
+*.sdk/*.log
 
-# Precompiled Headers
-*.gch
-*.pch
+*.sdk/*bsp/ps7_cortexa9_0/
+*.hw/
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
+*.log
+*.jou
+*.str
+*.mti
+*.mpf
+*.zip
+*.7z
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
-
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+# Make sure we keep only xci files in ip src subfolder
+*src/**/ip/*/**
+!*src/**/ip/*/*.xci
+!*src/**/ip/*/*.prj
+# Do not ignore anything in src/others
+!*src/**/others/*
+# Do not ignore block diagram files
+!*src/**/bd/**
