@@ -71,14 +71,14 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="design_ps_ooc.xdc"/>
         <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="hdl/design_ps.hwdef"/>
         <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="hdl/design_ps.v"/>
+        <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="design_ps_ooc.xdc"/>
+        <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="hw_handoff/design_ps_bd.tcl"/>
+        <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="hw_handoff/design_ps.hwh"/>
         <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="ip/design_ps_processing_system7_0_0/design_ps_processing_system7_0_0.xci">
           <Proxy FileSetName="design_ps_processing_system7_0_0"/>
         </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="hw_handoff/design_ps.hwh"/>
-        <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="hw_handoff/design_ps_bd.tcl"/>
       </File>
       <File Path="$PPRDIR/RTL/blk_rx.v">
         <FileInfo>
@@ -164,22 +164,6 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="mmcm_pll_drp_func_us_pll.vh"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="clk_wiz_0_board.xdc"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="clk_wiz_0.v"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="clk_wiz_0_clk_wiz.v"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="doc/clk_wiz_v5_3_changelog.txt"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="mmcm_pll_drp_func_7s_pll.vh"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="mmcm_pll_drp_func_7s_mmcm.vh"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="mmcm_pll_drp_func_us_mmcm.vh"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="clk_wiz_0_ooc.xdc"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="clk_wiz_0.xdc"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="clk_wiz_0.xml"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="clk_wiz_0_sim_netlist.v"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="clk_wiz_0_stub.v"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="clk_wiz_0_sim_netlist.vhdl"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="clk_wiz_0_stub.vhdl"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="clk_wiz_0.veo"/>
       </File>
       <Config>
         <Option Name="TopModule" Val="clk_wiz_0"/>
@@ -193,38 +177,6 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="ila_stub.v"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="ila_stub.vhdl"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="ila_sim_netlist.v"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="ila_sim_netlist.vhdl"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="hdl/verilog/xsdbm_v2_0_1_icn.vh"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="hdl/verilog/xsdbs_v1_0_2_in.vh"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="hdl/verilog/xsdbs_v1_0_2_i2x.vh"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="hdl/ltlib_v1_0_vl_rfs.v"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="synth/ila.v"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="ila_ooc.xdc"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="ila_v6_2/constraints/ila.xdc"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="hdl/verilog/ila_v6_2_0_ila_lib_fn.vh"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="hdl/verilog/ila_v6_2_0_ila_lparam.vh"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="hdl/verilog/ila_v6_2_0_ila_param.vh"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="hdl/ila_v6_2_syn_rfs.v"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="hdl/verilog/ila_v6_2_0_ila_ver.vh"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="hdl/xsdbm_v2_0_vl_rfs.v"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="hdl/verilog/xsdbm_v2_0_1_bs_core.vh"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="hdl/verilog/xsdbm_v2_0_1_bs.vh"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="hdl/verilog/xsdbm_v2_0_1_bs_ports.vh"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="hdl/verilog/ila_v6_2_0_ila_in.vh"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="sim/ila.v"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="doc/ila_v6_2_changelog.txt"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="hdl/verilog/xsdbm_v2_0_1_i2x.vh"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="hdl/fifo_generator_v13_1_vhsyn_rfs.vhd"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="hdl/blk_mem_gen_v8_3_vhsyn_rfs.vhd"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="hdl/xsdbs_v1_0_vl_rfs.v"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="hdl/verilog/xsdbm_v2_0_1_in.vh"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="hdl/verilog/ltlib_v1_0_0_lib_fn.vh"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="hdl/verilog/ltlib_v1_0_0_ver.vh"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="ila.veo"/>
-        <CompFileExtendedInfo CompFileName="ila.xci" FileRelPathName="ila.xml"/>
       </File>
       <Config>
         <Option Name="TopModule" Val="ila"/>
@@ -277,9 +229,7 @@
     </Run>
     <Run Id="clk_wiz_0_synth_1" Type="Ft3:Synth" SrcSet="clk_wiz_0" Part="xc7z010clg400-1" ConstrsSet="clk_wiz_0" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/clk_wiz_0_synth_1" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2016">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2016"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -287,9 +237,7 @@
     </Run>
     <Run Id="ila_synth_1" Type="Ft3:Synth" SrcSet="ila" Part="xc7z010clg400-1" ConstrsSet="ila" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/ila_synth_1" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2016">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2016"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -343,9 +291,7 @@
     </Run>
     <Run Id="clk_wiz_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z010clg400-1" ConstrsSet="clk_wiz_0" Description="Default settings for Implementation." SynthRun="clk_wiz_0_synth_1" IncludeInArchive="false">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2016">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2016"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -360,9 +306,7 @@
     </Run>
     <Run Id="ila_impl_1" Type="Ft2:EntireDesign" Part="xc7z010clg400-1" ConstrsSet="ila" Description="Default settings for Implementation." SynthRun="ila_synth_1" IncludeInArchive="false">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2016">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2016"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
