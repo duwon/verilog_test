@@ -59,10 +59,10 @@ module TOP(
 	wire					clk_ps_50mhz				;
 
 	wire		[3:0]		w_led						;
-
+    wire                    reset                       ;
 
 	assign	clk			=	clk_125mhz;
-
+    assign  reset       =   ~btn[0];
     assign 	led[3:0] 	= 	{btn[3], r_clk_led, w_led[1:0]};
 	
 	always @ (posedge clk) begin
@@ -85,7 +85,8 @@ module TOP(
 
 	blk_rx				blk_rx
 	(
-	.clk					(clk				),
+	.clk					(clk	    		),
+    .reset                  (reset              ),
 	.i_uart_rx				(uart_rx			),
 	.o_uart_tx				(uart_tx			),
 	.i_btn					(btn				),
@@ -129,7 +130,6 @@ module TOP(
     
 
 	wire	[39:0]			probe_blk_rx;
-
 
     ila 				ila(
     .clk                    (clk				),

@@ -1,10 +1,10 @@
 -- Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2016.3 (win64) Build 1682563 Mon Oct 10 19:07:27 MDT 2016
--- Date        : Wed Nov 20 20:31:54 2019
--- Host        : DUWON-HOME running 64-bit major release  (build 9200)
+-- Date        : Thu Nov 21 08:43:58 2019
+-- Host        : DUWON running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
---               c:/Users/duwon/Documents/GitHub/Zybo/Zybo.srcs/sources_1/ip/ila/ila_sim_netlist.vhdl
+--               C:/Users/duwon/Documents/Code_Xilinx/Zybo/Zybo.srcs/sources_1/ip/ila/ila_sim_netlist.vhdl
 -- Design      : ila
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.

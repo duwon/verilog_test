@@ -1,10 +1,10 @@
 -- Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2016.3 (win64) Build 1682563 Mon Oct 10 19:07:27 MDT 2016
--- Date        : Wed Nov 20 20:31:54 2019
--- Host        : DUWON-HOME running 64-bit major release  (build 9200)
+-- Date        : Thu Nov 21 08:43:57 2019
+-- Host        : DUWON running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode synth_stub
---               c:/Users/duwon/Documents/GitHub/Zybo/Zybo.srcs/sources_1/ip/ila/ila_stub.vhdl
+--               C:/Users/duwon/Documents/Code_Xilinx/Zybo/Zybo.srcs/sources_1/ip/ila/ila_stub.vhdl
 -- Design      : ila
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7z010clg400-1

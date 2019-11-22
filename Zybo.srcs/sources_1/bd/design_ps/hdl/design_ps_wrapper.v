@@ -1,8 +1,8 @@
 //Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2016.3 (win64) Build 1682563 Mon Oct 10 19:07:27 MDT 2016
-//Date        : Tue Nov 19 19:19:53 2019
-//Host        : DUWON-HOME running 64-bit major release  (build 9200)
+//Date        : Fri Nov 22 13:55:03 2019
+//Host        : DUWON running 64-bit major release  (build 9200)
 //Command     : generate_target design_ps_wrapper.bd
 //Design      : design_ps_wrapper
 //Purpose     : IP block netlist
