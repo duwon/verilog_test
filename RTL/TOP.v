@@ -61,6 +61,15 @@ module TOP(
 	wire		[3:0]		w_led						;
     wire                    reset                       ;
 
+    wire                    w_rx_mem_en	                ;
+    wire                    w_rx_mem_wen                ;	
+    wire        [9:0]       w_rx_mem_waddr              ;	
+    wire        [7:0]       w_rx_mem_wdata              ;	
+    wire                    w_rx_mem_ren                ;	
+    wire        [9:0]       w_rx_mem_raddr              ;	
+    wire        [7:0]       w_rx_mem_rdata              ;
+	wire					w_rx_mem_wdone				;
+
 	assign	clk			=	clk_125mhz;
     assign  reset       =   ~btn[0];
     assign 	led[3:0] 	= 	{btn[3], r_clk_led, w_led[1:0]};
@@ -77,22 +86,47 @@ module TOP(
 
 	blk_tx				blk_tx
 	(
-	.clk					(clk				),
+	.i_clk					(clk				),
+	.i_reset				(reset              ),
 	.i_btn					(btn				),
-	//.i_uart_tx				(uart_tx			),
-	.o_led					(w_led[0]			)
+	.o_uart_tx				(uart_tx			),
+	.o_led					(w_led[0]			),
+
+	.r_rx_mem_ren			(w_rx_mem_ren		),
+	.r_rx_mem_raddr			(w_rx_mem_raddr		),
+	.w_rx_mem_rdata			(w_rx_mem_rdata		),
+	.r_rx_mem_wdone			(w_rx_mem_wdone		),
+
+	.o_probe				(probe_blk_tx		)
 	);
 
 	blk_rx				blk_rx
 	(
-	.clk					(clk	    		),
-    .reset                  (reset              ),
+	.i_clk					(clk	    		),
+    .i_reset				(reset              ),
 	.i_uart_rx				(uart_rx			),
-	.o_uart_tx				(uart_tx			),
 	.i_btn					(btn				),
 	.o_led					(w_led[1]			),
+	.o_rx_mem_en			(w_rx_mem_en		),	
+	.o_rx_mem_wen			(w_rx_mem_wen		),	
+	.o_rx_mem_waddr			(w_rx_mem_waddr		),
+	.o_rx_mem_wdata			(w_rx_mem_wdata		),
+	.o_rx_mem_wdone			(w_rx_mem_wdone		),
 
 	.o_probe				(probe_blk_rx		)
+	);
+
+	blk_mem_1b_1k		blk_mem_rx
+	(
+	.clka 					(clk				),
+	.ena 					(w_rx_mem_en		),
+	.wea 					(w_rx_mem_wen		),
+	.addra					(w_rx_mem_waddr		),
+	.dina 					(w_rx_mem_wdata		),
+	.clkb					(clk				),
+	.enb					(w_rx_mem_ren		),
+	.addrb					(w_rx_mem_raddr		),
+	.doutb					(w_rx_mem_rdata		)
 	);
 
     design_ps_wrapper 	ps_top
@@ -129,12 +163,14 @@ module TOP(
 	);	
     
 
-	wire	[39:0]			probe_blk_rx;
+	wire		[39:0]		probe_blk_rx;
+	wire		[39:0]		probe_blk_tx;
 
-    ila 				ila(
+    ila 				ila
+	(
     .clk                    (clk				),
     .probe0                 (probe_blk_rx		), //40
-    .probe1                 (clk_10mhz			)  //1
+    .probe1                 (probe_blk_tx		)  //40
     );
 
 endmodule

@@ -1,10 +1,10 @@
 -- Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2016.3 (win64) Build 1682563 Mon Oct 10 19:07:27 MDT 2016
--- Date        : Fri Nov 22 13:56:29 2019
--- Host        : DUWON running 64-bit major release  (build 9200)
+-- Date        : Sat Nov 23 05:45:07 2019
+-- Host        : DUWON-HOME running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode synth_stub
---               c:/Users/duwon/Documents/Code_Xilinx/Zybo/Zybo.srcs/sources_1/bd/design_ps/ip/design_ps_axi_bram_ctrl_0_bram_0/design_ps_axi_bram_ctrl_0_bram_0_stub.vhdl
+--               C:/Users/duwon/Documents/GitHub/Zybo/Zybo.srcs/sources_1/bd/design_ps/ip/design_ps_axi_bram_ctrl_0_bram_0/design_ps_axi_bram_ctrl_0_bram_0_stub.vhdl
 -- Design      : design_ps_axi_bram_ctrl_0_bram_0
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7z010clg400-1

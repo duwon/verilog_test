@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="17" Path="C:/Users/duwon/Documents/Code_Xilinx/Zybo/Zybo.xpr">
+<Project Version="7" Minor="17" Path="C:/Users/duwon/Documents/GitHub/Zybo/Zybo.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="51ceb0c03873436792b2745fb1d3e5b2"/>
@@ -35,13 +35,13 @@
     <Option Name="WTVcsLaunchSim" Val="0"/>
     <Option Name="WTRivieraLaunchSim" Val="0"/>
     <Option Name="WTActivehdlLaunchSim" Val="0"/>
-    <Option Name="WTXSimExportSim" Val="11"/>
-    <Option Name="WTModelSimExportSim" Val="11"/>
-    <Option Name="WTQuestaExportSim" Val="11"/>
-    <Option Name="WTIesExportSim" Val="11"/>
-    <Option Name="WTVcsExportSim" Val="11"/>
-    <Option Name="WTRivieraExportSim" Val="11"/>
-    <Option Name="WTActivehdlExportSim" Val="11"/>
+    <Option Name="WTXSimExportSim" Val="12"/>
+    <Option Name="WTModelSimExportSim" Val="12"/>
+    <Option Name="WTQuestaExportSim" Val="12"/>
+    <Option Name="WTIesExportSim" Val="12"/>
+    <Option Name="WTVcsExportSim" Val="12"/>
+    <Option Name="WTRivieraExportSim" Val="12"/>
+    <Option Name="WTActivehdlExportSim" Val="12"/>
     <Option Name="GenerateIPUpgradeLog" Val="TRUE"/>
     <Option Name="XSimRadix" Val="hex"/>
     <Option Name="XSimTimeUnit" Val="ns"/>
@@ -51,14 +51,14 @@
   <FileSets Version="1" Minor="31">
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
       <Filter Type="Srcs"/>
-      <File Path="$PPRDIR/RTL/uart_rx.v">
+      <File Path="$PPRDIR/RTL/uart_tx.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/RTL/uart_tx.v">
+      <File Path="$PPRDIR/RTL/uart_rx.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -72,34 +72,34 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
         <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="hdl/design_ps.v"/>
+        <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="ip/design_ps_axi_bram_ctrl_0_0/design_ps_axi_bram_ctrl_0_0.xci"/>
         <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="ip/design_ps_processing_system7_0_0/design_ps_processing_system7_0_0.xci">
           <Proxy FileSetName="design_ps_processing_system7_0_0"/>
-        </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="ip/design_ps_axi_mem_intercon_0/design_ps_axi_mem_intercon_0.xci"/>
-        <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="ip/design_ps_axi_bram_ctrl_0_0/design_ps_axi_bram_ctrl_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="design_ps_ooc.xdc"/>
-        <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="design_ps.bmm"/>
-        <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="ip/design_ps_rst_ps7_0_50M_0/design_ps_rst_ps7_0_50M_0.xci">
-          <Proxy FileSetName="design_ps_rst_ps7_0_50M_0"/>
         </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="ip/design_ps_axi_bram_ctrl_0_bram_0/design_ps_axi_bram_ctrl_0_bram_0.xci">
           <Proxy FileSetName="design_ps_axi_bram_ctrl_0_bram_0"/>
         </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="ip/design_ps_auto_pc_0/design_ps_auto_pc_0.xci">
-          <Proxy FileSetName="design_ps_auto_pc_0"/>
+        <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="ip/design_ps_rst_ps7_0_50M_0/design_ps_rst_ps7_0_50M_0.xci">
+          <Proxy FileSetName="design_ps_rst_ps7_0_50M_0"/>
         </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="ip/design_ps_axi_mem_intercon_0/design_ps_axi_mem_intercon_0.xci"/>
         <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="hdl/design_ps.hwdef"/>
         <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="hw_handoff/design_ps_bd.tcl"/>
         <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="hw_handoff/design_ps.hwh"/>
+        <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="design_ps_ooc.xdc"/>
+        <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="design_ps.bmm"/>
+        <CompFileExtendedInfo CompFileName="design_ps.bd" FileRelPathName="ip/design_ps_auto_pc_0/design_ps_auto_pc_0.xci">
+          <Proxy FileSetName="design_ps_auto_pc_0"/>
+        </CompFileExtendedInfo>
       </File>
-      <File Path="$PPRDIR/RTL/blk_rx.v">
+      <File Path="$PPRDIR/RTL/blk_tx.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/RTL/blk_tx.v">
+      <File Path="$PPRDIR/RTL/blk_rx.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -164,21 +164,6 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="blk_mem_1b_1k.xci" FileRelPathName="blk_mem_1b_1k.xml"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_1b_1k.xci" FileRelPathName="hdl/blk_mem_gen_v8_3_vhsyn_rfs.vhd"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_1b_1k.xci" FileRelPathName="blk_mem_1b_1k_stub.vhdl"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_1b_1k.xci" FileRelPathName="synth/blk_mem_1b_1k.vhd"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_1b_1k.xci" FileRelPathName="sim/blk_mem_1b_1k.v"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_1b_1k.xci" FileRelPathName="simulation/blk_mem_gen_v8_3.v"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_1b_1k.xci" FileRelPathName="misc/blk_mem_gen_v8_3.vhd"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_1b_1k.xci" FileRelPathName="blk_mem_1b_1k_sim_netlist.vhdl"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_1b_1k.xci" FileRelPathName="blk_mem_1b_1k_stub.v"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_1b_1k.xci" FileRelPathName="blk_mem_1b_1k_ooc.xdc"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_1b_1k.xci" FileRelPathName="blk_mem_1b_1k_sim_netlist.v"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_1b_1k.xci" FileRelPathName="summary.log"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_1b_1k.xci" FileRelPathName="blk_mem_1b_1k.vho"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_1b_1k.xci" FileRelPathName="doc/blk_mem_gen_v8_3_changelog.txt"/>
-        <CompFileExtendedInfo CompFileName="blk_mem_1b_1k.xci" FileRelPathName="blk_mem_1b_1k.veo"/>
       </File>
       <Config>
         <Option Name="TopModule" Val="blk_mem_1b_1k"/>
@@ -208,12 +193,6 @@
       </File>
       <Config>
         <Option Name="TopModule" Val="ila"/>
-        <Option Name="UseBlackboxStub" Val="1"/>
-      </Config>
-    </FileSet>
-    <FileSet Name="design_ps_axi_bram_ctrl_0_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/design_ps_axi_bram_ctrl_0_0">
-      <Config>
-        <Option Name="TopModule" Val="design_ps_axi_bram_ctrl_0_0"/>
         <Option Name="UseBlackboxStub" Val="1"/>
       </Config>
     </FileSet>
@@ -295,21 +274,9 @@
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
     </Run>
-    <Run Id="design_ps_axi_bram_ctrl_0_0_synth_1" Type="Ft3:Synth" SrcSet="design_ps_axi_bram_ctrl_0_0" Part="xc7z010clg400-1" ConstrsSet="design_ps_axi_bram_ctrl_0_0" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/design_ps_axi_bram_ctrl_0_0_synth_1" IncludeInArchive="true">
-      <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2016">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
-        <Step Id="synth_design"/>
-      </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
-      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
-    </Run>
     <Run Id="design_ps_rst_ps7_0_50M_0_synth_1" Type="Ft3:Synth" SrcSet="design_ps_rst_ps7_0_50M_0" Part="xc7z010clg400-1" ConstrsSet="design_ps_rst_ps7_0_50M_0" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/design_ps_rst_ps7_0_50M_0_synth_1" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2016">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2016"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -317,9 +284,7 @@
     </Run>
     <Run Id="design_ps_axi_bram_ctrl_0_bram_0_synth_1" Type="Ft3:Synth" SrcSet="design_ps_axi_bram_ctrl_0_bram_0" Part="xc7z010clg400-1" ConstrsSet="design_ps_axi_bram_ctrl_0_bram_0" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/design_ps_axi_bram_ctrl_0_bram_0_synth_1" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2016">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2016"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -327,9 +292,7 @@
     </Run>
     <Run Id="design_ps_auto_pc_0_synth_1" Type="Ft3:Synth" SrcSet="design_ps_auto_pc_0" Part="xc7z010clg400-1" ConstrsSet="design_ps_auto_pc_0" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/design_ps_auto_pc_0_synth_1" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2016">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2016"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -411,28 +374,9 @@
       </Strategy>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
     </Run>
-    <Run Id="design_ps_axi_bram_ctrl_0_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z010clg400-1" ConstrsSet="design_ps_axi_bram_ctrl_0_0" Description="Default settings for Implementation." SynthRun="design_ps_axi_bram_ctrl_0_0_synth_1" IncludeInArchive="false">
-      <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2016">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
-        <Step Id="init_design"/>
-        <Step Id="opt_design"/>
-        <Step Id="power_opt_design"/>
-        <Step Id="place_design"/>
-        <Step Id="post_place_power_opt_design"/>
-        <Step Id="phys_opt_design"/>
-        <Step Id="route_design"/>
-        <Step Id="post_route_phys_opt_design"/>
-        <Step Id="write_bitstream"/>
-      </Strategy>
-      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
-    </Run>
     <Run Id="design_ps_rst_ps7_0_50M_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z010clg400-1" ConstrsSet="design_ps_rst_ps7_0_50M_0" Description="Default settings for Implementation." SynthRun="design_ps_rst_ps7_0_50M_0_synth_1" IncludeInArchive="false">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2016">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2016"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -447,9 +391,7 @@
     </Run>
     <Run Id="design_ps_axi_bram_ctrl_0_bram_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z010clg400-1" ConstrsSet="design_ps_axi_bram_ctrl_0_bram_0" Description="Default settings for Implementation." SynthRun="design_ps_axi_bram_ctrl_0_bram_0_synth_1" IncludeInArchive="false">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2016">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2016"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -464,9 +406,7 @@
     </Run>
     <Run Id="design_ps_auto_pc_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z010clg400-1" ConstrsSet="design_ps_auto_pc_0" Description="Default settings for Implementation." SynthRun="design_ps_auto_pc_0_synth_1" IncludeInArchive="false">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2016">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2016"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>

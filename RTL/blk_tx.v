@@ -20,50 +20,195 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module blk_tx(
-	input					clk			,
-	input		[3:0]		i_btn		,
-	output					i_uart_tx	,
-	output	reg				o_led
+	input					i_clk			,
+	input					i_reset			,
+	input		[3:0]		i_btn			,
+	output					o_uart_tx		,
+	output	reg				o_led			,
+
+	output	reg				r_rx_mem_ren	,
+	output 	reg	[9:0]		r_rx_mem_raddr	,
+	input		[7:0]		w_rx_mem_rdata	,
+	input					r_rx_mem_wdone	,
+
+	output		[39:0]		o_probe
 );
 
-    reg 		[7:0]   	r_Tx_Byte   		= 'd0	;
-    reg 		        	r_Tx_DV     		= 'b1	;
-    reg 				  	r_Tx_Done   		= 'd0	;    
-    wire		        	w_Tx_Done					;
-	wire					w_Tx_Active					;
-
-    reg 		[12:0]  	r_Serial_Cnt 		= 'd0	;
 
 
-    always @ (posedge clk) begin
-		r_Tx_Done	 	<= 	w_Tx_Done;
-		
-		if(w_Tx_Done & ~r_Tx_Done) begin
-			r_Tx_Byte 		<= 	r_Tx_Byte + 1'b1;
-			r_Tx_DV 		<= 	1'b1;
-			r_Serial_Cnt 	<= 	r_Serial_Cnt + 1'b1;             
+//////////////////////////////////////////////////////////////////////////////////
+// TX test - send uart
+//////////////////////////////////////////////////////////////////////////////////
+	reg			[1:0]		r_tx_state		=	'd0	;
+	reg			[7:0]		r_tx_byte		=	'd0 ;
+	reg						r_tx_dv			=	'd0 ;
+	reg			[3:0]		r_tx_addr		=	'd0 ;
+
+	wire					w_tx_done;
+	wire					w_tx_active;
+
+	parameter s_TX_START 	= 2'b00;
+	parameter s_TX_SEND		= 2'b01;
+	parameter s_TX_NEXT		= 2'b10;
+	parameter s_TX_CLEAR	= 2'b11;
+
+	always @(negedge i_reset or posedge i_clk) begin
+		if(!i_reset) begin
+			r_tx_addr 	<=	'd0;
 		end
+		else begin
+			case (r_tx_state)
+				s_TX_START	: begin
+					if(r_rx_mem_rdatacnt == 'd9)
+						r_tx_state		<=	s_TX_SEND;
+					else
+						r_tx_state		<=	s_TX_START;
+				end
 
-		if(w_Tx_Active)
-			r_Tx_DV 		<= 	1'b0;
+				s_TX_SEND	: begin
+					r_tx_byte 		<= 	r_tx_data[r_tx_addr];
+					r_tx_addr		<=	r_tx_addr + 1;
+					r_tx_dv			<=  'd1;
+					r_tx_state		<=  s_TX_NEXT;
+				end
 
-		if(r_Serial_Cnt == 'd1152) begin
-			o_led			<=	~o_led;
-			r_Serial_Cnt	<= 	'd0;
+				s_TX_NEXT	: begin
+					r_tx_dv			<=	'd0;
+					if( w_tx_done == 1) begin
+						if(r_tx_addr == 10)
+							r_tx_state		<=	s_TX_CLEAR;
+						else 
+							r_tx_state		<= 	s_TX_SEND;
+					end
+					else
+						r_tx_state		<=  s_TX_NEXT;
+				end
+
+				s_TX_CLEAR	: begin
+					r_tx_addr		<=	'd0;
+					r_tx_state		<=  s_TX_START;
+				end
+            endcase
 		end
-		else
-			o_led			<=	o_led;
+	end
+
+//////////////////////////////////////////////////////////////////////////////////
+// TX test - read memory
+//////////////////////////////////////////////////////////////////////////////////
+	
+	reg			[7:0]		r_tx_data[0:10]					;
+	reg						r_rx_mem_delay			=	'd0	;
+	reg			[3:0]		r_rx_mem_rdatacnt 		=	'd0	;
+
+	always @(negedge i_reset or posedge i_clk) begin
+		if(!i_reset) begin
+			r_rx_mem_ren		<=	'd0;
+			r_rx_mem_raddr		<=	'd0;
+			r_rx_mem_delay		<=	'd0;	
+		end
+		else begin
+			if(r_rx_mem_wdone) begin
+				r_rx_mem_ren			<= 	'd1;
+			end
+			else if (r_rx_mem_ren) begin
+				if(r_rx_mem_raddr == 'd9)
+					r_rx_mem_raddr 			<=	'd9;
+				else
+					r_rx_mem_raddr			<= r_rx_mem_raddr + 'd1;
+			end
+
+			if(r_rx_mem_raddr == 'd1) begin
+				r_rx_mem_delay			<=	'd1;
+			end
+			else if (r_rx_mem_delay)begin
+				r_tx_data[r_rx_mem_rdatacnt]	<= w_rx_mem_rdata;
+				r_rx_mem_rdatacnt				<= r_rx_mem_rdatacnt + 'd1;
+			end
+
+			if(r_rx_mem_rdatacnt == 'd9) begin
+				r_rx_mem_rdatacnt 	<=	'd0;
+				r_rx_mem_delay			<=	'd0;
+				r_rx_mem_ren			<=	'd0;
+				r_rx_mem_raddr			<=	'd0;
+			end
+		end
 	end
 
 
+//////////////////////////////////////////////////////////////////////////////////
+// TX test - Send initial value at startup
+//////////////////////////////////////////////////////////////////////////////////
+    reg 				  	r_tx_done   	= 	'd0	;    
+    reg 		[12:0]  	r_serial_cnt 	= 	'd0	;
+	reg						r_tx_init_en	=	'd1	;
+	reg						r_tx_init_dv	=	'd0	;
+	reg			[7:0]		r_tx_init_byte	=	'd0	;
+
+    always @ (negedge i_reset or posedge i_clk) begin
+		if(!i_reset) begin
+    		r_serial_cnt 	<= 	'd0	;
+			r_tx_init_en	<=	'd1	;
+			r_tx_init_dv	<=	'd0	;
+			r_tx_init_byte	<=	'd0	;
+		end
+		else begin
+			r_tx_done	 	<= 	w_tx_done;
+			
+			if(r_tx_init_en)
+				r_tx_init_dv 		<= 	1'b1;
+
+			if(w_tx_done & ~r_tx_done) begin
+				r_tx_init_byte 		<= 	r_tx_init_byte + 1'b1;
+				r_tx_init_dv 		<= 	1'b1;
+				r_serial_cnt 		<= 	r_serial_cnt + 1'b1;             
+			end
+
+			if(w_tx_active)
+				r_tx_init_dv 		<= 	1'b0;
+
+			if(r_serial_cnt == 'd4000) begin
+				o_led				<=	~o_led;
+				r_serial_cnt		<= 	'd0;
+				r_tx_init_en		<=	'd0;
+			end
+			else
+				o_led				<=	o_led;
+		end
+	end
+
+	wire					w_tx_dv		;
+	wire	[7:0]			w_tx_byte	;
+	assign	w_tx_dv			=	r_tx_init_en ? r_tx_init_dv : r_tx_dv;
+	assign	w_tx_byte		=	r_tx_init_en ? r_tx_init_byte : r_tx_byte;
+
     uart_tx 				uart_tx_0
     (
-	.i_Clock    				(clk				),
-	.i_Tx_DV    				(r_Tx_DV			),
-	.i_Tx_Byte  				(r_Tx_Byte			),
-	.o_Tx_Serial				(uart_tx			),
-	.o_Tx_Done  				(w_Tx_Done			),
-	.o_Tx_Active				(w_Tx_Active		)
+	.i_Clock    				(i_clk				),
+	.i_Tx_DV    				(w_tx_dv			),
+	.i_Tx_Byte  				(w_tx_byte			),
+	.o_Tx_Serial				(o_uart_tx			),
+	.o_Tx_Done  				(w_tx_done			),
+	.o_Tx_Active				(w_tx_active		)
     );
+
+
+
+	assign	o_probe[7:0]	=	w_tx_byte;		
+	assign	o_probe[8]		=	w_tx_dv;
+	assign	o_probe[9]		=	o_uart_tx;
+	assign	o_probe[10]		=	w_tx_done;
+	assign	o_probe[11]		=	w_tx_active;
+	assign	o_probe[12]		=	r_tx_init_en;
+	assign	o_probe[16:13]	=	r_serial_cnt;
+	assign	o_probe[17]		=	r_rx_mem_ren;
+	assign	o_probe[21:18]	=	r_rx_mem_raddr;
+	assign	o_probe[29:22]	=	w_rx_mem_rdata;
+	assign	o_probe[30]		=	r_rx_mem_wdone;
+	assign	o_probe[32:31]	=	r_tx_state;
+	assign	o_probe[36:33]	=	r_tx_addr;
+	assign	o_probe[37]		=	r_rx_mem_delay;
+	assign	o_probe[39:38]	=	r_rx_mem_rdatacnt;
+
+
 
 endmodule // 
