@@ -1,10 +1,10 @@
 // Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2016.3 (win64) Build 1682563 Mon Oct 10 19:07:27 MDT 2016
-// Date        : Wed Nov 20 20:31:54 2019
-// Host        : DUWON-HOME running 64-bit major release  (build 9200)
+// Date        : Wed Nov 27 19:01:17 2019
+// Host        : DUWON running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode synth_stub
-//               c:/Users/duwon/Documents/GitHub/Zybo/Zybo.srcs/sources_1/ip/ila/ila_stub.v
+//               C:/Users/duwon/Documents/Code_Xilinx/Zybo/Zybo.srcs/sources_1/ip/ila/ila_stub.v
 // Design      : ila
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7z010clg400-1
@@ -14,9 +14,10 @@
 // The synthesis directives are for Synopsys Synplify support to prevent IO buffer insertion.
 // Please paste the declaration into a Verilog source file or add the file as an additional source.
 (* X_CORE_INFO = "ila,Vivado 2016.3" *)
-module ila(clk, probe0, probe1)
-/* synthesis syn_black_box black_box_pad_pin="clk,probe0[39:0],probe1[0:0]" */;
+module ila(clk, probe0, probe1, probe2)
+/* synthesis syn_black_box black_box_pad_pin="clk,probe0[39:0],probe1[39:0],probe2[49:0]" */;
   input clk;
   input [39:0]probe0;
-  input [0:0]probe1;
+  input [39:0]probe1;
+  input [49:0]probe2;
 endmodule

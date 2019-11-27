@@ -159,6 +159,27 @@ proc create_root_design { parentCell } {
   # Create ports
   set clk_ps_50mhz [ create_bd_port -dir O -type clk clk_ps_50mhz ]
 
+  # Create instance: axi_bram_ctrl_0, and set properties
+  set axi_bram_ctrl_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.0 axi_bram_ctrl_0 ]
+
+  # Create instance: axi_bram_ctrl_0_bram, and set properties
+  set axi_bram_ctrl_0_bram [ create_bd_cell -type ip -vlnv xilinx.com:ip:blk_mem_gen:8.3 axi_bram_ctrl_0_bram ]
+  set_property -dict [ list \
+CONFIG.Memory_Type {True_Dual_Port_RAM} \
+CONFIG.use_bram_block {BRAM_Controller} \
+ ] $axi_bram_ctrl_0_bram
+
+  # Need to retain value_src of defaults
+  set_property -dict [ list \
+CONFIG.use_bram_block.VALUE_SRC {DEFAULT} \
+ ] $axi_bram_ctrl_0_bram
+
+  # Create instance: axi_mem_intercon, and set properties
+  set axi_mem_intercon [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 axi_mem_intercon ]
+  set_property -dict [ list \
+CONFIG.NUM_MI {1} \
+ ] $axi_mem_intercon
+
   # Create instance: processing_system7_0, and set properties
   set processing_system7_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:processing_system7:5.5 processing_system7_0 ]
   set_property -dict [ list \
@@ -1431,27 +1452,49 @@ CONFIG.PCW_WDT_PERIPHERAL_FREQMHZ.VALUE_SRC {DEFAULT} \
 CONFIG.PCW_WDT_WDT_IO.VALUE_SRC {DEFAULT} \
  ] $processing_system7_0
 
+  # Create instance: rst_ps7_0_50M, and set properties
+  set rst_ps7_0_50M [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 rst_ps7_0_50M ]
+
   # Create interface connections
+  connect_bd_intf_net -intf_net axi_bram_ctrl_0_BRAM_PORTA [get_bd_intf_pins axi_bram_ctrl_0/BRAM_PORTA] [get_bd_intf_pins axi_bram_ctrl_0_bram/BRAM_PORTA]
+  connect_bd_intf_net -intf_net axi_bram_ctrl_0_BRAM_PORTB [get_bd_intf_pins axi_bram_ctrl_0/BRAM_PORTB] [get_bd_intf_pins axi_bram_ctrl_0_bram/BRAM_PORTB]
+  connect_bd_intf_net -intf_net axi_mem_intercon_M00_AXI [get_bd_intf_pins axi_bram_ctrl_0/S_AXI] [get_bd_intf_pins axi_mem_intercon/M00_AXI]
   connect_bd_intf_net -intf_net processing_system7_0_DDR [get_bd_intf_ports DDR] [get_bd_intf_pins processing_system7_0/DDR]
   connect_bd_intf_net -intf_net processing_system7_0_FIXED_IO [get_bd_intf_ports FIXED_IO] [get_bd_intf_pins processing_system7_0/FIXED_IO]
+  connect_bd_intf_net -intf_net processing_system7_0_M_AXI_GP0 [get_bd_intf_pins axi_mem_intercon/S00_AXI] [get_bd_intf_pins processing_system7_0/M_AXI_GP0]
 
   # Create port connections
-  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_ports clk_ps_50mhz] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK]
+  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_ports clk_ps_50mhz] [get_bd_pins axi_bram_ctrl_0/s_axi_aclk] [get_bd_pins axi_mem_intercon/ACLK] [get_bd_pins axi_mem_intercon/M00_ACLK] [get_bd_pins axi_mem_intercon/S00_ACLK] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins rst_ps7_0_50M/slowest_sync_clk]
+  connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins processing_system7_0/FCLK_RESET0_N] [get_bd_pins rst_ps7_0_50M/ext_reset_in]
+  connect_bd_net -net rst_ps7_0_50M_interconnect_aresetn [get_bd_pins axi_mem_intercon/ARESETN] [get_bd_pins rst_ps7_0_50M/interconnect_aresetn]
+  connect_bd_net -net rst_ps7_0_50M_peripheral_aresetn [get_bd_pins axi_bram_ctrl_0/s_axi_aresetn] [get_bd_pins axi_mem_intercon/M00_ARESETN] [get_bd_pins axi_mem_intercon/S00_ARESETN] [get_bd_pins rst_ps7_0_50M/peripheral_aresetn]
 
   # Create address segments
+  create_bd_addr_seg -range 0x00002000 -offset 0x40000000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs axi_bram_ctrl_0/S_AXI/Mem0] SEG_axi_bram_ctrl_0_Mem0
 
   # Perform GUI Layout
   regenerate_bd_layout -layout_string {
    guistr: "# # String gsaved with Nlview 6.6.5b  2016-09-06 bk=1.3687 VDI=39 GEI=35 GUI=JA:1.6
 #  -string -flagsOSRD
-preplace port DDR -pg 1 -y -220 -defaultsOSRD
-preplace port FIXED_IO -pg 1 -y -200 -defaultsOSRD
-preplace port clk_ps_50mhz -pg 1 -y -160 -defaultsOSRD
-preplace inst processing_system7_0 -pg 1 -lvl 1 -y -180 -defaultsOSRD
-preplace netloc processing_system7_0_DDR 1 1 1 NJ
-preplace netloc processing_system7_0_FIXED_IO 1 1 1 NJ
-preplace netloc processing_system7_0_FCLK_CLK0 1 0 2 10 -270 390
-levelinfo -pg 1 -10 200 410 -top -390 -bot 160
+preplace port DDR -pg 1 -y 40 -defaultsOSRD
+preplace port FIXED_IO -pg 1 -y 60 -defaultsOSRD
+preplace port clk_ps_50mhz -pg 1 -y 100 -defaultsOSRD
+preplace inst rst_ps7_0_50M -pg 1 -lvl 3 -y -30 -defaultsOSRD
+preplace inst axi_bram_ctrl_0_bram -pg 1 -lvl 2 -y -190 -defaultsOSRD
+preplace inst axi_mem_intercon -pg 1 -lvl 4 -y -260 -defaultsOSRD
+preplace inst axi_bram_ctrl_0 -pg 1 -lvl 1 -y -290 -defaultsOSRD
+preplace inst processing_system7_0 -pg 1 -lvl 2 -y 80 -defaultsOSRD
+preplace netloc processing_system7_0_DDR 1 2 5 690J 60 1050J 40 NJ 40 NJ 40 N
+preplace netloc axi_bram_ctrl_0_BRAM_PORTA 1 1 1 290
+preplace netloc processing_system7_0_M_AXI_GP0 1 2 2 NJ 80 1040
+preplace netloc axi_bram_ctrl_0_BRAM_PORTB 1 1 1 270
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 2 1 700
+preplace netloc axi_mem_intercon_M00_AXI 1 0 5 20 -380 NJ -380 NJ -380 NJ -380 1350
+preplace netloc rst_ps7_0_50M_interconnect_aresetn 1 3 1 1030
+preplace netloc processing_system7_0_FIXED_IO 1 2 5 670J 70 NJ 70 NJ 70 NJ 70 1450
+preplace netloc rst_ps7_0_50M_peripheral_aresetn 1 0 4 30 -220 280J -250 NJ -250 1020
+preplace netloc processing_system7_0_FCLK_CLK0 1 0 7 20 -130 280 -130 680 -130 1050 -130 NJ -130 NJ -130 1440J
+levelinfo -pg 1 0 150 480 860 1210 1370 1420 1470 -top -390 -bot 300
 ",
 }
 
