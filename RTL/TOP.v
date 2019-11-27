@@ -69,6 +69,17 @@ module TOP(
     wire        [9:0]       w_rx_mem_raddr              ;	
     wire        [7:0]       w_rx_mem_rdata              ;
 	wire					w_rx_mem_wdone				;
+	wire		[9:0]		w_rx_mem_byte				;
+
+    wire                    w_tx_mem_en	                ;
+    wire                    w_tx_mem_wen                ;	
+    wire        [9:0]       w_tx_mem_waddr              ;	
+    wire        [7:0]       w_tx_mem_wdata              ;	
+    wire                    w_tx_mem_ren                ;	
+    wire        [9:0]       w_tx_mem_raddr              ;	
+    wire        [7:0]       w_tx_mem_rdata              ;
+	wire					w_tx_mem_wdone				;
+	wire		[9:0]		w_tx_mem_byte				;
 
 	assign	clk			=	clk_125mhz;
     assign  reset       =   ~btn[0];
@@ -94,8 +105,15 @@ module TOP(
 
 	.r_rx_mem_ren			(w_rx_mem_ren		),
 	.r_rx_mem_raddr			(w_rx_mem_raddr		),
-	.w_rx_mem_rdata			(w_rx_mem_rdata		),
-	.r_rx_mem_wdone			(w_rx_mem_wdone		),
+	.i_rx_mem_rdata			(w_rx_mem_rdata		),
+	.i_rx_mem_wdone			(w_rx_mem_wdone		),
+	.i_rx_mem_byte			(w_rx_mem_byte		),
+
+	.r_tx_mem_ren			(w_tx_mem_ren		),
+	.r_tx_mem_raddr			(w_tx_mem_raddr		),
+	.i_tx_mem_rdata			(w_tx_mem_rdata		),
+	.i_tx_mem_wdone			(w_tx_mem_wdone		),
+	.i_tx_mem_byte			(w_tx_mem_byte		),
 
 	.o_probe				(probe_blk_tx		)
 	);
@@ -112,6 +130,14 @@ module TOP(
 	.o_rx_mem_waddr			(w_rx_mem_waddr		),
 	.o_rx_mem_wdata			(w_rx_mem_wdata		),
 	.o_rx_mem_wdone			(w_rx_mem_wdone		),
+	.o_rx_mem_byte			(w_rx_mem_byte		),
+	
+	.o_tx_mem_en			(w_tx_mem_en		),
+	.o_tx_mem_wen			(w_tx_mem_wen		),
+	.o_tx_mem_waddr			(w_tx_mem_waddr		),
+	.o_tx_mem_wdata			(w_tx_mem_wdata		),
+	.o_tx_mem_wdone			(w_tx_mem_wdone		),
+	.o_tx_mem_byte			(w_tx_mem_byte		),
 
 	.o_probe				(probe_blk_rx		)
 	);
@@ -127,6 +153,19 @@ module TOP(
 	.enb					(w_rx_mem_ren		),
 	.addrb					(w_rx_mem_raddr		),
 	.doutb					(w_rx_mem_rdata		)
+	);
+
+	blk_mem_1b_1k		blk_mem_tx
+	(
+	.clka 					(clk				),
+	.ena 					(w_tx_mem_en		),
+	.wea 					(w_tx_mem_wen		),
+	.addra					(w_tx_mem_waddr		),
+	.dina 					(w_tx_mem_wdata		),
+	.clkb					(clk				),
+	.enb					(w_tx_mem_ren		),
+	.addrb					(w_tx_mem_raddr		),
+	.doutb					(w_tx_mem_rdata		)
 	);
 
     design_ps_wrapper 	ps_top
@@ -165,12 +204,30 @@ module TOP(
 
 	wire		[39:0]		probe_blk_rx;
 	wire		[39:0]		probe_blk_tx;
+	wire		[49:0]		probe_top;
+
+	assign probe_top[0]			=	uart_rx						;
+	assign probe_top[1]			=	w_rx_mem_en	                ;
+	assign probe_top[2]			=	w_rx_mem_wen                ;	
+	assign probe_top[3]			=	w_rx_mem_ren                ;	
+	assign probe_top[4]			=	w_rx_mem_wdone				;
+	assign probe_top[12:5]		=	w_tx_mem_wdata              ;	
+	assign probe_top[20:13]		=	w_tx_mem_waddr              ;	
+	assign probe_top[28:21]		=	w_tx_mem_raddr              ;	
+	assign probe_top[36:29]		=	w_tx_mem_rdata              ;
+	assign probe_top[44:37]		=	w_tx_mem_byte				;
+    assign probe_top[45]		=	w_tx_mem_en	                ;
+    assign probe_top[46]		=	w_tx_mem_wen                ;	
+    assign probe_top[47]		=	w_tx_mem_ren                ;	
+	assign probe_top[48]		=	w_tx_mem_wdone				;
+	assign probe_top[49]		=	uart_tx						;
 
     ila 				ila
 	(
     .clk                    (clk				),
-    .probe0                 (probe_blk_rx		), //40
-    .probe1                 (probe_blk_tx		)  //40
+    .probe0                 (probe_blk_rx		),	//40
+    .probe1                 (probe_blk_tx		),	//40
+	.probe2					(probe_top			)	//50
     );
 
 endmodule
