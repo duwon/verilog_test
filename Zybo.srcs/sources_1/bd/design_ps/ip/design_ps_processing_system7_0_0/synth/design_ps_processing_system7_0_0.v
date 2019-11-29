@@ -58,6 +58,9 @@ C_M_AXI_GP1_THREAD_ID_WIDTH=12,C_NUM_F2P_INTR_INPUTS=1,C_IRQ_F2P_MODE=DIRECT,C_D
 FIABLE_TXN=0}" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module design_ps_processing_system7_0_0 (
+  TTC0_WAVE0_OUT,
+  TTC0_WAVE1_OUT,
+  TTC0_WAVE2_OUT,
   M_AXI_GP0_ARVALID,
   M_AXI_GP0_AWVALID,
   M_AXI_GP0_BREADY,
@@ -97,6 +100,7 @@ module design_ps_processing_system7_0_0 (
   M_AXI_GP0_BRESP,
   M_AXI_GP0_RRESP,
   M_AXI_GP0_RDATA,
+  IRQ_F2P,
   FCLK_CLK0,
   FCLK_RESET0_N,
   MIO,
@@ -122,6 +126,9 @@ module design_ps_processing_system7_0_0 (
   PS_PORB
 );
 
+output wire TTC0_WAVE0_OUT;
+output wire TTC0_WAVE1_OUT;
+output wire TTC0_WAVE2_OUT;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI_GP0 ARVALID" *)
 output wire M_AXI_GP0_ARVALID;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI_GP0 AWVALID" *)
@@ -200,6 +207,8 @@ input wire [1 : 0] M_AXI_GP0_BRESP;
 input wire [1 : 0] M_AXI_GP0_RRESP;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI_GP0 RDATA" *)
 input wire [31 : 0] M_AXI_GP0_RDATA;
+(* X_INTERFACE_INFO = "xilinx.com:signal:interrupt:1.0 IRQ_F2P INTERRUPT" *)
+input wire [0 : 0] IRQ_F2P;
 (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 FCLK_CLK0 CLK" *)
 output wire FCLK_CLK0;
 (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 FCLK_RESET0_N RST" *)
@@ -447,9 +456,9 @@ inout wire PS_PORB;
     .UART1_DSRN(1'B0),
     .UART1_RIN(1'B0),
     .UART1_RX(1'B1),
-    .TTC0_WAVE0_OUT(),
-    .TTC0_WAVE1_OUT(),
-    .TTC0_WAVE2_OUT(),
+    .TTC0_WAVE0_OUT(TTC0_WAVE0_OUT),
+    .TTC0_WAVE1_OUT(TTC0_WAVE1_OUT),
+    .TTC0_WAVE2_OUT(TTC0_WAVE2_OUT),
     .TTC0_CLK0_IN(1'B0),
     .TTC0_CLK1_IN(1'B0),
     .TTC0_CLK2_IN(1'B0),
@@ -878,7 +887,7 @@ inout wire PS_PORB;
     .IRQ_P2F_SPI1(),
     .IRQ_P2F_UART1(),
     .IRQ_P2F_CAN1(),
-    .IRQ_F2P(1'B0),
+    .IRQ_F2P(IRQ_F2P),
     .Core0_nFIQ(1'B0),
     .Core0_nIRQ(1'B0),
     .Core1_nFIQ(1'B0),

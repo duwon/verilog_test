@@ -81,6 +81,14 @@ module TOP(
 	wire					w_tx_mem_wdone				;
 	wire		[9:0]		w_tx_mem_byte				;
 
+
+	wire		[31:0]		w_BRAM_addr					;
+	wire		[31:0]		w_BRAM_din					;
+	wire		[31:0]		w_BRAM_dout					;
+	wire					w_BRAM_en					;
+	wire					w_BRAM_rst					;
+	wire		[3:0]		w_BRAM_we					;
+
 	assign	clk			=	clk_125mhz;
     assign  reset       =   ~btn[0];
     assign 	led[3:0] 	= 	{btn[3], r_clk_led, w_led[1:0]};
@@ -139,6 +147,11 @@ module TOP(
 	.o_tx_mem_wdone			(w_tx_mem_wdone		),
 	.o_tx_mem_byte			(w_tx_mem_byte		),
 
+	.o_bram_addr			(w_BRAM_addr		),
+	.o_bram_din				(w_BRAM_din			),
+	.o_bram_en				(w_BRAM_en			),
+	.o_bram_we				(w_BRAM_we			),
+
 	.o_probe				(probe_blk_rx		)
 	);
 
@@ -168,8 +181,29 @@ module TOP(
 	.doutb					(w_tx_mem_rdata		)
 	);
 
+/*
+	fifo_generator_0	fifo_tx
+	(
+	.clk 					(clk		),		//: IN STD_LOGIC;
+	.srst 					(reset		),		//: IN STD_LOGIC;
+	.din 					(w_tx_mem_wdata		),		//: IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	.wr_en					(w_tx_mem_en		),	 	//: IN STD_LOGIC;
+	.rd_en					(w_tx_mem_ren		),	 	//: IN STD_LOGIC;
+	.dout 					(w_tx_mem_rdata		)		//: OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
+	//.full 					(		),		//: OUT STD_LOGIC;
+	//.empty					(		),	 	//: OUT STD_LOGIC
+	);
+*/
+
     design_ps_wrapper 	ps_top
     (
+	.BRAM_PORTB_addr		(w_BRAM_addr		),
+    .BRAM_PORTB_clk			(clk				),
+    .BRAM_PORTB_din			(w_BRAM_din			),
+    .BRAM_PORTB_dout		(w_BRAM_dout		),
+    .BRAM_PORTB_en			(w_BRAM_en			),
+    .BRAM_PORTB_rst			(w_BRAM_rst			),
+    .BRAM_PORTB_we			(w_BRAM_we			),
     .DDR_addr         		(DDR_addr           ),
     .DDR_ba           		(DDR_ba             ), 
     .DDR_cas_n        		(DDR_cas_n          ),

@@ -1,7 +1,7 @@
 //Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2016.3 (win64) Build 1682563 Mon Oct 10 19:07:27 MDT 2016
-//Date        : Fri Nov 22 13:55:03 2019
+//Date        : Fri Nov 29 09:46:08 2019
 //Host        : DUWON running 64-bit major release  (build 9200)
 //Command     : generate_target design_ps_wrapper.bd
 //Design      : design_ps_wrapper
@@ -10,7 +10,14 @@
 `timescale 1 ps / 1 ps
 
 module design_ps_wrapper
-   (DDR_addr,
+   (BRAM_PORTB_addr,
+    BRAM_PORTB_clk,
+    BRAM_PORTB_din,
+    BRAM_PORTB_dout,
+    BRAM_PORTB_en,
+    BRAM_PORTB_rst,
+    BRAM_PORTB_we,
+    DDR_addr,
     DDR_ba,
     DDR_cas_n,
     DDR_ck_n,
@@ -31,7 +38,15 @@ module design_ps_wrapper
     FIXED_IO_ps_clk,
     FIXED_IO_ps_porb,
     FIXED_IO_ps_srstb,
+    IRQ_F2P,
     clk_ps_50mhz);
+  input [31:0]BRAM_PORTB_addr;
+  input BRAM_PORTB_clk;
+  input [31:0]BRAM_PORTB_din;
+  output [31:0]BRAM_PORTB_dout;
+  input BRAM_PORTB_en;
+  input BRAM_PORTB_rst;
+  input [3:0]BRAM_PORTB_we;
   inout [14:0]DDR_addr;
   inout [2:0]DDR_ba;
   inout DDR_cas_n;
@@ -53,8 +68,16 @@ module design_ps_wrapper
   inout FIXED_IO_ps_clk;
   inout FIXED_IO_ps_porb;
   inout FIXED_IO_ps_srstb;
+  input [0:0]IRQ_F2P;
   output clk_ps_50mhz;
 
+  wire [31:0]BRAM_PORTB_addr;
+  wire BRAM_PORTB_clk;
+  wire [31:0]BRAM_PORTB_din;
+  wire [31:0]BRAM_PORTB_dout;
+  wire BRAM_PORTB_en;
+  wire BRAM_PORTB_rst;
+  wire [3:0]BRAM_PORTB_we;
   wire [14:0]DDR_addr;
   wire [2:0]DDR_ba;
   wire DDR_cas_n;
@@ -76,10 +99,18 @@ module design_ps_wrapper
   wire FIXED_IO_ps_clk;
   wire FIXED_IO_ps_porb;
   wire FIXED_IO_ps_srstb;
+  wire [0:0]IRQ_F2P;
   wire clk_ps_50mhz;
 
   design_ps design_ps_i
-       (.DDR_addr(DDR_addr),
+       (.BRAM_PORTB_addr(BRAM_PORTB_addr),
+        .BRAM_PORTB_clk(BRAM_PORTB_clk),
+        .BRAM_PORTB_din(BRAM_PORTB_din),
+        .BRAM_PORTB_dout(BRAM_PORTB_dout),
+        .BRAM_PORTB_en(BRAM_PORTB_en),
+        .BRAM_PORTB_rst(BRAM_PORTB_rst),
+        .BRAM_PORTB_we(BRAM_PORTB_we),
+        .DDR_addr(DDR_addr),
         .DDR_ba(DDR_ba),
         .DDR_cas_n(DDR_cas_n),
         .DDR_ck_n(DDR_ck_n),
@@ -100,5 +131,6 @@ module design_ps_wrapper
         .FIXED_IO_ps_clk(FIXED_IO_ps_clk),
         .FIXED_IO_ps_porb(FIXED_IO_ps_porb),
         .FIXED_IO_ps_srstb(FIXED_IO_ps_srstb),
+        .IRQ_F2P(IRQ_F2P),
         .clk_ps_50mhz(clk_ps_50mhz));
 endmodule

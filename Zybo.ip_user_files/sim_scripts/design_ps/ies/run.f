@@ -12,15 +12,6 @@
   "../../../bd/design_ps/ip/design_ps_processing_system7_0_0/sim/design_ps_processing_system7_0_0.v" \
   "../../../bd/design_ps/hdl/design_ps.v" \
 -endlib
--makelib ies/blk_mem_gen_v8_3_4 \
-  "../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/59b0/simulation/blk_mem_gen_v8_3.v" \
--endlib
--makelib ies/axi_bram_ctrl_v4_0_9 \
-  "../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/d95a/hdl/axi_bram_ctrl_v4_0_rfs.vhd" \
--endlib
--makelib ies/xil_defaultlib \
-  "../../../bd/design_ps/ip/design_ps_axi_bram_ctrl_0_0/sim/design_ps_axi_bram_ctrl_0_0.vhd" \
--endlib
 -makelib ies/lib_cdc_v1_0_2 \
   "../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/52cb/hdl/lib_cdc_v1_0_rfs.vhd" \
 -endlib
@@ -30,8 +21,17 @@
 -makelib ies/xil_defaultlib \
   "../../../bd/design_ps/ip/design_ps_rst_ps7_0_50M_0/sim/design_ps_rst_ps7_0_50M_0.vhd" \
 -endlib
+-makelib ies/blk_mem_gen_v8_3_4 \
+  "../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/59b0/simulation/blk_mem_gen_v8_3.v" \
+-endlib
+-makelib ies/axi_bram_ctrl_v4_0_9 \
+  "../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/d95a/hdl/axi_bram_ctrl_v4_0_rfs.vhd" \
+-endlib
 -makelib ies/xil_defaultlib \
-  "../../../bd/design_ps/ip/design_ps_axi_bram_ctrl_0_bram_0/sim/design_ps_axi_bram_ctrl_0_bram_0.v" \
+  "../../../bd/design_ps/ip/design_ps_axi_bram_ctrl_0_1/sim/design_ps_axi_bram_ctrl_0_1.vhd" \
+-endlib
+-makelib ies/xil_defaultlib \
+  "../../../bd/design_ps/ip/design_ps_axi_bram_ctrl_0_bram_1/sim/design_ps_axi_bram_ctrl_0_bram_1.v" \
 -endlib
 -makelib ies/generic_baseblocks_v2_1_0 \
   "../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/7ee0/hdl/generic_baseblocks_v2_1_vl_rfs.v" \

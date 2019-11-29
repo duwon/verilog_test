@@ -4,10 +4,10 @@ vlib activehdl
 vlib activehdl/xil_defaultlib
 vlib activehdl/xpm
 vlib activehdl/processing_system7_bfm_v2_0_5
-vlib activehdl/blk_mem_gen_v8_3_4
-vlib activehdl/axi_bram_ctrl_v4_0_9
 vlib activehdl/lib_cdc_v1_0_2
 vlib activehdl/proc_sys_reset_v5_0_10
+vlib activehdl/blk_mem_gen_v8_3_4
+vlib activehdl/axi_bram_ctrl_v4_0_9
 vlib activehdl/generic_baseblocks_v2_1_0
 vlib activehdl/fifo_generator_v13_1_2
 vlib activehdl/axi_data_fifo_v2_1_9
@@ -18,10 +18,10 @@ vlib activehdl/axi_protocol_converter_v2_1_10
 vmap xil_defaultlib activehdl/xil_defaultlib
 vmap xpm activehdl/xpm
 vmap processing_system7_bfm_v2_0_5 activehdl/processing_system7_bfm_v2_0_5
-vmap blk_mem_gen_v8_3_4 activehdl/blk_mem_gen_v8_3_4
-vmap axi_bram_ctrl_v4_0_9 activehdl/axi_bram_ctrl_v4_0_9
 vmap lib_cdc_v1_0_2 activehdl/lib_cdc_v1_0_2
 vmap proc_sys_reset_v5_0_10 activehdl/proc_sys_reset_v5_0_10
+vmap blk_mem_gen_v8_3_4 activehdl/blk_mem_gen_v8_3_4
+vmap axi_bram_ctrl_v4_0_9 activehdl/axi_bram_ctrl_v4_0_9
 vmap generic_baseblocks_v2_1_0 activehdl/generic_baseblocks_v2_1_0
 vmap fifo_generator_v13_1_2 activehdl/fifo_generator_v13_1_2
 vmap axi_data_fifo_v2_1_9 activehdl/axi_data_fifo_v2_1_9
@@ -43,15 +43,6 @@ vlog -work xil_defaultlib  -v2k5 "+incdir+../../../../Zybo.srcs/sources_1/bd/des
 "../../../bd/design_ps/ip/design_ps_processing_system7_0_0/sim/design_ps_processing_system7_0_0.v" \
 "../../../bd/design_ps/hdl/design_ps.v" \
 
-vlog -work blk_mem_gen_v8_3_4  -v2k5 "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/2527/hdl" "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/7e3a/hdl" "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/2527/hdl" "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/7e3a/hdl" \
-"../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/59b0/simulation/blk_mem_gen_v8_3.v" \
-
-vcom -work axi_bram_ctrl_v4_0_9 -93 \
-"../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/d95a/hdl/axi_bram_ctrl_v4_0_rfs.vhd" \
-
-vcom -work xil_defaultlib -93 \
-"../../../bd/design_ps/ip/design_ps_axi_bram_ctrl_0_0/sim/design_ps_axi_bram_ctrl_0_0.vhd" \
-
 vcom -work lib_cdc_v1_0_2 -93 \
 "../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/52cb/hdl/lib_cdc_v1_0_rfs.vhd" \
 
@@ -61,8 +52,17 @@ vcom -work proc_sys_reset_v5_0_10 -93 \
 vcom -work xil_defaultlib -93 \
 "../../../bd/design_ps/ip/design_ps_rst_ps7_0_50M_0/sim/design_ps_rst_ps7_0_50M_0.vhd" \
 
+vlog -work blk_mem_gen_v8_3_4  -v2k5 "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/2527/hdl" "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/7e3a/hdl" "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/2527/hdl" "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/7e3a/hdl" \
+"../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/59b0/simulation/blk_mem_gen_v8_3.v" \
+
+vcom -work axi_bram_ctrl_v4_0_9 -93 \
+"../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/d95a/hdl/axi_bram_ctrl_v4_0_rfs.vhd" \
+
+vcom -work xil_defaultlib -93 \
+"../../../bd/design_ps/ip/design_ps_axi_bram_ctrl_0_1/sim/design_ps_axi_bram_ctrl_0_1.vhd" \
+
 vlog -work xil_defaultlib  -v2k5 "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/2527/hdl" "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/7e3a/hdl" "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/2527/hdl" "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/7e3a/hdl" \
-"../../../bd/design_ps/ip/design_ps_axi_bram_ctrl_0_bram_0/sim/design_ps_axi_bram_ctrl_0_bram_0.v" \
+"../../../bd/design_ps/ip/design_ps_axi_bram_ctrl_0_bram_1/sim/design_ps_axi_bram_ctrl_0_bram_1.v" \
 
 vlog -work generic_baseblocks_v2_1_0  -v2k5 "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/2527/hdl" "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/7e3a/hdl" "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/2527/hdl" "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/7e3a/hdl" \
 "../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/7ee0/hdl/generic_baseblocks_v2_1_vl_rfs.v" \

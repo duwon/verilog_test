@@ -31,7 +31,7 @@ module blk_rx(
 	output	reg	[9:0]		o_rx_mem_waddr	,
 	output	reg	[7:0]		o_rx_mem_wdata	,
 	output	reg				o_rx_mem_wdone	,
-	output	reg	[7:0]		o_rx_mem_byte	,
+	output	reg	[9:0]		o_rx_mem_byte	,
 
 	output	reg				o_tx_mem_en		,
 	output	reg				o_tx_mem_wen	,	
@@ -39,6 +39,11 @@ module blk_rx(
 	output	reg	[7:0]		o_tx_mem_wdata	,
 	output	reg				o_tx_mem_wdone	,
 	output	reg	[9:0]		o_tx_mem_byte	,
+
+	output	reg	[31:0]		o_bram_addr		,
+	output	reg	[31:0]		o_bram_din		,
+	output	reg				o_bram_en		,
+	output	reg	[3:0]		o_bram_we		,
 
 	output		[39:0]		o_probe
 );
@@ -239,6 +244,55 @@ module blk_rx(
 
 		end
     end
+
+
+	reg		[9:0]			r_bram_cnt			=	'd0	;
+	reg		[9:0]			r_bram_len			=	'd0	;
+	reg		[1:0]			r_bram_write_start	=	'd0	;
+
+    always @ (negedge i_reset or posedge i_clk)  begin
+		if(!i_reset) begin
+		end
+		else begin	
+			r_bram_write_start[1]		<=	r_bram_write_start[0];
+
+			if(r_msg_state == s_MSG_OK) begin
+				r_bram_len			<=	r_msg_addr;
+				o_bram_din			<= 	{r_message[3],r_message[2],r_message[1],r_message[0]};
+				o_bram_addr			<=	0;
+				r_bram_cnt			<=	0;
+				o_bram_en			<=	1;
+				o_bram_we			<= 	'b1111;
+				r_bram_write_start[0]	<=	1;
+			end
+
+			if(r_bram_write_start[1]) begin
+
+				if(r_bram_cnt > r_bram_len) begin
+					o_bram_din			<= 	0;
+					r_bram_write_start	<=	0;
+					r_bram_len			<=	0;
+					o_bram_din			<=	0;
+					r_bram_cnt			<=	0;
+					o_bram_en			<=	0;
+					o_bram_we			<= 	0;
+				end
+				else begin
+					o_bram_din		<= 	{r_message[r_bram_cnt+3],r_message[r_bram_cnt+2],r_message[r_bram_cnt+1],r_message[r_bram_cnt]};
+					o_bram_addr		<= 	r_bram_cnt;
+					r_bram_cnt		<= 	r_bram_cnt + 4;				
+				end
+			end
+
+		end
+	end
+
+
+
+
+
+
+
 
 	assign	o_probe[0]		=	i_reset		; 	//i_reset		;
 	assign	o_probe[1]		=	i_uart_rx		;

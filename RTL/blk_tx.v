@@ -62,17 +62,19 @@ module blk_tx(
 			r_uart_tx_len 	<=	'd0;
 		end
 		else begin
-			if(i_rx_mem_wdone)
-				r_uart_tx_len	<=	i_rx_mem_byte;
-			else if(i_tx_mem_wdone)
-				r_uart_tx_len	<=	i_tx_mem_byte;
+			if(!r_tx_state) begin
+				if(i_rx_mem_wdone)
+					r_uart_tx_len	<=	i_rx_mem_byte;
+				else if(i_tx_mem_wdone)
+					r_uart_tx_len	<=	i_tx_mem_byte;
+			end
 		end
 	end
 
 	parameter s_TX_START 	= 2'b00;
 	parameter s_TX_SEND		= 2'b01;
-	parameter s_TX_NEXT		= 2'b10;
-	parameter s_TX_CLEAR	= 2'b11;
+	parameter s_TX_NEXT		= 2'b11;
+	parameter s_TX_CLEAR	= 2'b10;
 
 	always @(negedge i_reset or posedge i_clk) begin
 		if(!i_reset) begin

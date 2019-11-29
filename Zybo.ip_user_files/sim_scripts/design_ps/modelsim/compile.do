@@ -4,10 +4,10 @@ vlib msim
 vlib msim/xil_defaultlib
 vlib msim/xpm
 vlib msim/processing_system7_bfm_v2_0_5
-vlib msim/blk_mem_gen_v8_3_4
-vlib msim/axi_bram_ctrl_v4_0_9
 vlib msim/lib_cdc_v1_0_2
 vlib msim/proc_sys_reset_v5_0_10
+vlib msim/blk_mem_gen_v8_3_4
+vlib msim/axi_bram_ctrl_v4_0_9
 vlib msim/generic_baseblocks_v2_1_0
 vlib msim/fifo_generator_v13_1_2
 vlib msim/axi_data_fifo_v2_1_9
@@ -18,10 +18,10 @@ vlib msim/axi_protocol_converter_v2_1_10
 vmap xil_defaultlib msim/xil_defaultlib
 vmap xpm msim/xpm
 vmap processing_system7_bfm_v2_0_5 msim/processing_system7_bfm_v2_0_5
-vmap blk_mem_gen_v8_3_4 msim/blk_mem_gen_v8_3_4
-vmap axi_bram_ctrl_v4_0_9 msim/axi_bram_ctrl_v4_0_9
 vmap lib_cdc_v1_0_2 msim/lib_cdc_v1_0_2
 vmap proc_sys_reset_v5_0_10 msim/proc_sys_reset_v5_0_10
+vmap blk_mem_gen_v8_3_4 msim/blk_mem_gen_v8_3_4
+vmap axi_bram_ctrl_v4_0_9 msim/axi_bram_ctrl_v4_0_9
 vmap generic_baseblocks_v2_1_0 msim/generic_baseblocks_v2_1_0
 vmap fifo_generator_v13_1_2 msim/fifo_generator_v13_1_2
 vmap axi_data_fifo_v2_1_9 msim/axi_data_fifo_v2_1_9
@@ -43,15 +43,6 @@ vlog -work xil_defaultlib -64 -incr "+incdir+../../../../Zybo.srcs/sources_1/bd/
 "../../../bd/design_ps/ip/design_ps_processing_system7_0_0/sim/design_ps_processing_system7_0_0.v" \
 "../../../bd/design_ps/hdl/design_ps.v" \
 
-vlog -work blk_mem_gen_v8_3_4 -64 -incr "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/2527/hdl" "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/7e3a/hdl" "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/2527/hdl" "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/7e3a/hdl" \
-"../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/59b0/simulation/blk_mem_gen_v8_3.v" \
-
-vcom -work axi_bram_ctrl_v4_0_9 -64 -93 \
-"../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/d95a/hdl/axi_bram_ctrl_v4_0_rfs.vhd" \
-
-vcom -work xil_defaultlib -64 -93 \
-"../../../bd/design_ps/ip/design_ps_axi_bram_ctrl_0_0/sim/design_ps_axi_bram_ctrl_0_0.vhd" \
-
 vcom -work lib_cdc_v1_0_2 -64 -93 \
 "../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/52cb/hdl/lib_cdc_v1_0_rfs.vhd" \
 
@@ -61,8 +52,17 @@ vcom -work proc_sys_reset_v5_0_10 -64 -93 \
 vcom -work xil_defaultlib -64 -93 \
 "../../../bd/design_ps/ip/design_ps_rst_ps7_0_50M_0/sim/design_ps_rst_ps7_0_50M_0.vhd" \
 
+vlog -work blk_mem_gen_v8_3_4 -64 -incr "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/2527/hdl" "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/7e3a/hdl" "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/2527/hdl" "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/7e3a/hdl" \
+"../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/59b0/simulation/blk_mem_gen_v8_3.v" \
+
+vcom -work axi_bram_ctrl_v4_0_9 -64 -93 \
+"../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/d95a/hdl/axi_bram_ctrl_v4_0_rfs.vhd" \
+
+vcom -work xil_defaultlib -64 -93 \
+"../../../bd/design_ps/ip/design_ps_axi_bram_ctrl_0_1/sim/design_ps_axi_bram_ctrl_0_1.vhd" \
+
 vlog -work xil_defaultlib -64 -incr "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/2527/hdl" "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/7e3a/hdl" "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/2527/hdl" "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/7e3a/hdl" \
-"../../../bd/design_ps/ip/design_ps_axi_bram_ctrl_0_bram_0/sim/design_ps_axi_bram_ctrl_0_bram_0.v" \
+"../../../bd/design_ps/ip/design_ps_axi_bram_ctrl_0_bram_1/sim/design_ps_axi_bram_ctrl_0_bram_1.v" \
 
 vlog -work generic_baseblocks_v2_1_0 -64 -incr "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/2527/hdl" "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/7e3a/hdl" "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/2527/hdl" "+incdir+../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/7e3a/hdl" \
 "../../../../Zybo.srcs/sources_1/bd/design_ps/ipshared/7ee0/hdl/generic_baseblocks_v2_1_vl_rfs.v" \

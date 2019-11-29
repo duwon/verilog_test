@@ -1,7 +1,7 @@
 //Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2016.3 (win64) Build 1682563 Mon Oct 10 19:07:27 MDT 2016
-//Date        : Fri Nov 22 13:55:03 2019
+//Date        : Fri Nov 29 09:46:08 2019
 //Host        : DUWON running 64-bit major release  (build 9200)
 //Command     : generate_target design_ps.bd
 //Design      : design_ps
@@ -9,9 +9,16 @@
 //--------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CORE_GENERATION_INFO = "design_ps,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_ps,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=7,numReposBlks=5,numNonXlnxBlks=0,numHierBlks=2,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=1,da_bram_cntlr_cnt=2,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "design_ps.hwdef" *) 
+(* CORE_GENERATION_INFO = "design_ps,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_ps,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=7,numReposBlks=5,numNonXlnxBlks=0,numHierBlks=2,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=1,da_bram_cntlr_cnt=1,synth_mode=OOC_per_BD}" *) (* HW_HANDOFF = "design_ps.hwdef" *) 
 module design_ps
-   (DDR_addr,
+   (BRAM_PORTB_addr,
+    BRAM_PORTB_clk,
+    BRAM_PORTB_din,
+    BRAM_PORTB_dout,
+    BRAM_PORTB_en,
+    BRAM_PORTB_rst,
+    BRAM_PORTB_we,
+    DDR_addr,
     DDR_ba,
     DDR_cas_n,
     DDR_ck_n,
@@ -32,7 +39,15 @@ module design_ps
     FIXED_IO_ps_clk,
     FIXED_IO_ps_porb,
     FIXED_IO_ps_srstb,
+    IRQ_F2P,
     clk_ps_50mhz);
+  input [31:0]BRAM_PORTB_addr;
+  input BRAM_PORTB_clk;
+  input [31:0]BRAM_PORTB_din;
+  output [31:0]BRAM_PORTB_dout;
+  input BRAM_PORTB_en;
+  input BRAM_PORTB_rst;
+  input [3:0]BRAM_PORTB_we;
   inout [14:0]DDR_addr;
   inout [2:0]DDR_ba;
   inout DDR_cas_n;
@@ -54,28 +69,30 @@ module design_ps
   inout FIXED_IO_ps_clk;
   inout FIXED_IO_ps_porb;
   inout FIXED_IO_ps_srstb;
+  input [0:0]IRQ_F2P;
   output clk_ps_50mhz;
 
-  wire [12:0]axi_bram_ctrl_0_BRAM_PORTA_ADDR;
+  wire [31:0]BRAM_PORTB_1_ADDR;
+  wire BRAM_PORTB_1_CLK;
+  wire [31:0]BRAM_PORTB_1_DIN;
+  wire [31:0]BRAM_PORTB_1_DOUT;
+  wire BRAM_PORTB_1_EN;
+  wire BRAM_PORTB_1_RST;
+  wire [3:0]BRAM_PORTB_1_WE;
+  wire [0:0]IRQ_F2P_1;
+  wire [11:0]axi_bram_ctrl_0_BRAM_PORTA_ADDR;
   wire axi_bram_ctrl_0_BRAM_PORTA_CLK;
   wire [31:0]axi_bram_ctrl_0_BRAM_PORTA_DIN;
   wire [31:0]axi_bram_ctrl_0_BRAM_PORTA_DOUT;
   wire axi_bram_ctrl_0_BRAM_PORTA_EN;
   wire axi_bram_ctrl_0_BRAM_PORTA_RST;
   wire [3:0]axi_bram_ctrl_0_BRAM_PORTA_WE;
-  wire [12:0]axi_bram_ctrl_0_BRAM_PORTB_ADDR;
-  wire axi_bram_ctrl_0_BRAM_PORTB_CLK;
-  wire [31:0]axi_bram_ctrl_0_BRAM_PORTB_DIN;
-  wire [31:0]axi_bram_ctrl_0_BRAM_PORTB_DOUT;
-  wire axi_bram_ctrl_0_BRAM_PORTB_EN;
-  wire axi_bram_ctrl_0_BRAM_PORTB_RST;
-  wire [3:0]axi_bram_ctrl_0_BRAM_PORTB_WE;
   wire [31:0]axi_mem_intercon_M00_AXI_ARADDR;
   wire [1:0]axi_mem_intercon_M00_AXI_ARBURST;
   wire [3:0]axi_mem_intercon_M00_AXI_ARCACHE;
   wire [11:0]axi_mem_intercon_M00_AXI_ARID;
   wire [7:0]axi_mem_intercon_M00_AXI_ARLEN;
-  wire [0:0]axi_mem_intercon_M00_AXI_ARLOCK;
+  wire axi_mem_intercon_M00_AXI_ARLOCK;
   wire [2:0]axi_mem_intercon_M00_AXI_ARPROT;
   wire axi_mem_intercon_M00_AXI_ARREADY;
   wire [2:0]axi_mem_intercon_M00_AXI_ARSIZE;
@@ -85,7 +102,7 @@ module design_ps
   wire [3:0]axi_mem_intercon_M00_AXI_AWCACHE;
   wire [11:0]axi_mem_intercon_M00_AXI_AWID;
   wire [7:0]axi_mem_intercon_M00_AXI_AWLEN;
-  wire [0:0]axi_mem_intercon_M00_AXI_AWLOCK;
+  wire axi_mem_intercon_M00_AXI_AWLOCK;
   wire [2:0]axi_mem_intercon_M00_AXI_AWPROT;
   wire axi_mem_intercon_M00_AXI_AWREADY;
   wire [2:0]axi_mem_intercon_M00_AXI_AWSIZE;
@@ -169,26 +186,27 @@ module design_ps
   wire [0:0]rst_ps7_0_50M_interconnect_aresetn;
   wire [0:0]rst_ps7_0_50M_peripheral_aresetn;
 
+  assign BRAM_PORTB_1_ADDR = BRAM_PORTB_addr[31:0];
+  assign BRAM_PORTB_1_CLK = BRAM_PORTB_clk;
+  assign BRAM_PORTB_1_DIN = BRAM_PORTB_din[31:0];
+  assign BRAM_PORTB_1_EN = BRAM_PORTB_en;
+  assign BRAM_PORTB_1_RST = BRAM_PORTB_rst;
+  assign BRAM_PORTB_1_WE = BRAM_PORTB_we[3:0];
+  assign BRAM_PORTB_dout[31:0] = BRAM_PORTB_1_DOUT;
+  assign IRQ_F2P_1 = IRQ_F2P[0];
   assign clk_ps_50mhz = processing_system7_0_FCLK_CLK0;
   (* BMM_INFO_ADDRESS_SPACE = "byte  0x40000000 32 > design_ps axi_bram_ctrl_0_bram" *) 
   (* KEEP_HIERARCHY = "yes" *) 
-  design_ps_axi_bram_ctrl_0_0 axi_bram_ctrl_0
+  design_ps_axi_bram_ctrl_0_1 axi_bram_ctrl_0
        (.bram_addr_a(axi_bram_ctrl_0_BRAM_PORTA_ADDR),
-        .bram_addr_b(axi_bram_ctrl_0_BRAM_PORTB_ADDR),
         .bram_clk_a(axi_bram_ctrl_0_BRAM_PORTA_CLK),
-        .bram_clk_b(axi_bram_ctrl_0_BRAM_PORTB_CLK),
         .bram_en_a(axi_bram_ctrl_0_BRAM_PORTA_EN),
-        .bram_en_b(axi_bram_ctrl_0_BRAM_PORTB_EN),
         .bram_rddata_a(axi_bram_ctrl_0_BRAM_PORTA_DOUT),
-        .bram_rddata_b(axi_bram_ctrl_0_BRAM_PORTB_DOUT),
         .bram_rst_a(axi_bram_ctrl_0_BRAM_PORTA_RST),
-        .bram_rst_b(axi_bram_ctrl_0_BRAM_PORTB_RST),
         .bram_we_a(axi_bram_ctrl_0_BRAM_PORTA_WE),
-        .bram_we_b(axi_bram_ctrl_0_BRAM_PORTB_WE),
         .bram_wrdata_a(axi_bram_ctrl_0_BRAM_PORTA_DIN),
-        .bram_wrdata_b(axi_bram_ctrl_0_BRAM_PORTB_DIN),
         .s_axi_aclk(processing_system7_0_FCLK_CLK0),
-        .s_axi_araddr(axi_mem_intercon_M00_AXI_ARADDR[12:0]),
+        .s_axi_araddr(axi_mem_intercon_M00_AXI_ARADDR[11:0]),
         .s_axi_arburst(axi_mem_intercon_M00_AXI_ARBURST),
         .s_axi_arcache(axi_mem_intercon_M00_AXI_ARCACHE),
         .s_axi_aresetn(rst_ps7_0_50M_peripheral_aresetn),
@@ -199,7 +217,7 @@ module design_ps
         .s_axi_arready(axi_mem_intercon_M00_AXI_ARREADY),
         .s_axi_arsize(axi_mem_intercon_M00_AXI_ARSIZE),
         .s_axi_arvalid(axi_mem_intercon_M00_AXI_ARVALID),
-        .s_axi_awaddr(axi_mem_intercon_M00_AXI_AWADDR[12:0]),
+        .s_axi_awaddr(axi_mem_intercon_M00_AXI_AWADDR[11:0]),
         .s_axi_awburst(axi_mem_intercon_M00_AXI_AWBURST),
         .s_axi_awcache(axi_mem_intercon_M00_AXI_AWCACHE),
         .s_axi_awid(axi_mem_intercon_M00_AXI_AWID),
@@ -224,21 +242,21 @@ module design_ps
         .s_axi_wready(axi_mem_intercon_M00_AXI_WREADY),
         .s_axi_wstrb(axi_mem_intercon_M00_AXI_WSTRB),
         .s_axi_wvalid(axi_mem_intercon_M00_AXI_WVALID));
-  design_ps_axi_bram_ctrl_0_bram_0 axi_bram_ctrl_0_bram
-       (.addra({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,axi_bram_ctrl_0_BRAM_PORTA_ADDR}),
-        .addrb({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,axi_bram_ctrl_0_BRAM_PORTB_ADDR}),
+  design_ps_axi_bram_ctrl_0_bram_1 axi_bram_ctrl_0_bram
+       (.addra({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,axi_bram_ctrl_0_BRAM_PORTA_ADDR}),
+        .addrb(BRAM_PORTB_1_ADDR),
         .clka(axi_bram_ctrl_0_BRAM_PORTA_CLK),
-        .clkb(axi_bram_ctrl_0_BRAM_PORTB_CLK),
+        .clkb(BRAM_PORTB_1_CLK),
         .dina(axi_bram_ctrl_0_BRAM_PORTA_DIN),
-        .dinb(axi_bram_ctrl_0_BRAM_PORTB_DIN),
+        .dinb(BRAM_PORTB_1_DIN),
         .douta(axi_bram_ctrl_0_BRAM_PORTA_DOUT),
-        .doutb(axi_bram_ctrl_0_BRAM_PORTB_DOUT),
+        .doutb(BRAM_PORTB_1_DOUT),
         .ena(axi_bram_ctrl_0_BRAM_PORTA_EN),
-        .enb(axi_bram_ctrl_0_BRAM_PORTB_EN),
+        .enb(BRAM_PORTB_1_EN),
         .rsta(axi_bram_ctrl_0_BRAM_PORTA_RST),
-        .rstb(axi_bram_ctrl_0_BRAM_PORTB_RST),
+        .rstb(BRAM_PORTB_1_RST),
         .wea(axi_bram_ctrl_0_BRAM_PORTA_WE),
-        .web(axi_bram_ctrl_0_BRAM_PORTB_WE));
+        .web(BRAM_PORTB_1_WE));
   design_ps_axi_mem_intercon_0 axi_mem_intercon
        (.ACLK(processing_system7_0_FCLK_CLK0),
         .ARESETN(rst_ps7_0_50M_interconnect_aresetn),
@@ -341,6 +359,7 @@ module design_ps
         .DDR_WEB(DDR_we_n),
         .FCLK_CLK0(processing_system7_0_FCLK_CLK0),
         .FCLK_RESET0_N(processing_system7_0_FCLK_RESET0_N),
+        .IRQ_F2P(IRQ_F2P_1),
         .MIO(FIXED_IO_mio[53:0]),
         .M_AXI_GP0_ACLK(processing_system7_0_FCLK_CLK0),
         .M_AXI_GP0_ARADDR(processing_system7_0_M_AXI_GP0_ARADDR),
@@ -483,7 +502,7 @@ module design_ps_axi_mem_intercon_0
   output [3:0]M00_AXI_arcache;
   output [11:0]M00_AXI_arid;
   output [7:0]M00_AXI_arlen;
-  output [0:0]M00_AXI_arlock;
+  output M00_AXI_arlock;
   output [2:0]M00_AXI_arprot;
   input M00_AXI_arready;
   output [2:0]M00_AXI_arsize;
@@ -493,7 +512,7 @@ module design_ps_axi_mem_intercon_0
   output [3:0]M00_AXI_awcache;
   output [11:0]M00_AXI_awid;
   output [7:0]M00_AXI_awlen;
-  output [0:0]M00_AXI_awlock;
+  output M00_AXI_awlock;
   output [2:0]M00_AXI_awprot;
   input M00_AXI_awready;
   output [2:0]M00_AXI_awsize;
@@ -601,7 +620,7 @@ module design_ps_axi_mem_intercon_0
   wire [3:0]s00_couplers_to_axi_mem_intercon_ARCACHE;
   wire [11:0]s00_couplers_to_axi_mem_intercon_ARID;
   wire [7:0]s00_couplers_to_axi_mem_intercon_ARLEN;
-  wire [0:0]s00_couplers_to_axi_mem_intercon_ARLOCK;
+  wire s00_couplers_to_axi_mem_intercon_ARLOCK;
   wire [2:0]s00_couplers_to_axi_mem_intercon_ARPROT;
   wire s00_couplers_to_axi_mem_intercon_ARREADY;
   wire [2:0]s00_couplers_to_axi_mem_intercon_ARSIZE;
@@ -611,7 +630,7 @@ module design_ps_axi_mem_intercon_0
   wire [3:0]s00_couplers_to_axi_mem_intercon_AWCACHE;
   wire [11:0]s00_couplers_to_axi_mem_intercon_AWID;
   wire [7:0]s00_couplers_to_axi_mem_intercon_AWLEN;
-  wire [0:0]s00_couplers_to_axi_mem_intercon_AWLOCK;
+  wire s00_couplers_to_axi_mem_intercon_AWLOCK;
   wire [2:0]s00_couplers_to_axi_mem_intercon_AWPROT;
   wire s00_couplers_to_axi_mem_intercon_AWREADY;
   wire [2:0]s00_couplers_to_axi_mem_intercon_AWSIZE;
@@ -637,7 +656,7 @@ module design_ps_axi_mem_intercon_0
   assign M00_AXI_arcache[3:0] = s00_couplers_to_axi_mem_intercon_ARCACHE;
   assign M00_AXI_arid[11:0] = s00_couplers_to_axi_mem_intercon_ARID;
   assign M00_AXI_arlen[7:0] = s00_couplers_to_axi_mem_intercon_ARLEN;
-  assign M00_AXI_arlock[0] = s00_couplers_to_axi_mem_intercon_ARLOCK;
+  assign M00_AXI_arlock = s00_couplers_to_axi_mem_intercon_ARLOCK;
   assign M00_AXI_arprot[2:0] = s00_couplers_to_axi_mem_intercon_ARPROT;
   assign M00_AXI_arsize[2:0] = s00_couplers_to_axi_mem_intercon_ARSIZE;
   assign M00_AXI_arvalid = s00_couplers_to_axi_mem_intercon_ARVALID;
@@ -646,7 +665,7 @@ module design_ps_axi_mem_intercon_0
   assign M00_AXI_awcache[3:0] = s00_couplers_to_axi_mem_intercon_AWCACHE;
   assign M00_AXI_awid[11:0] = s00_couplers_to_axi_mem_intercon_AWID;
   assign M00_AXI_awlen[7:0] = s00_couplers_to_axi_mem_intercon_AWLEN;
-  assign M00_AXI_awlock[0] = s00_couplers_to_axi_mem_intercon_AWLOCK;
+  assign M00_AXI_awlock = s00_couplers_to_axi_mem_intercon_AWLOCK;
   assign M00_AXI_awprot[2:0] = s00_couplers_to_axi_mem_intercon_AWPROT;
   assign M00_AXI_awsize[2:0] = s00_couplers_to_axi_mem_intercon_AWSIZE;
   assign M00_AXI_awvalid = s00_couplers_to_axi_mem_intercon_AWVALID;
@@ -874,7 +893,7 @@ module s00_couplers_imp_1N84JJ7
   output [3:0]M_AXI_arcache;
   output [11:0]M_AXI_arid;
   output [7:0]M_AXI_arlen;
-  output [0:0]M_AXI_arlock;
+  output M_AXI_arlock;
   output [2:0]M_AXI_arprot;
   input M_AXI_arready;
   output [2:0]M_AXI_arsize;
@@ -884,7 +903,7 @@ module s00_couplers_imp_1N84JJ7
   output [3:0]M_AXI_awcache;
   output [11:0]M_AXI_awid;
   output [7:0]M_AXI_awlen;
-  output [0:0]M_AXI_awlock;
+  output M_AXI_awlock;
   output [2:0]M_AXI_awprot;
   input M_AXI_awready;
   output [2:0]M_AXI_awsize;
@@ -1026,7 +1045,7 @@ module s00_couplers_imp_1N84JJ7
   assign M_AXI_arcache[3:0] = auto_pc_to_s00_couplers_ARCACHE;
   assign M_AXI_arid[11:0] = auto_pc_to_s00_couplers_ARID;
   assign M_AXI_arlen[7:0] = auto_pc_to_s00_couplers_ARLEN;
-  assign M_AXI_arlock[0] = auto_pc_to_s00_couplers_ARLOCK;
+  assign M_AXI_arlock = auto_pc_to_s00_couplers_ARLOCK;
   assign M_AXI_arprot[2:0] = auto_pc_to_s00_couplers_ARPROT;
   assign M_AXI_arsize[2:0] = auto_pc_to_s00_couplers_ARSIZE;
   assign M_AXI_arvalid = auto_pc_to_s00_couplers_ARVALID;
@@ -1035,7 +1054,7 @@ module s00_couplers_imp_1N84JJ7
   assign M_AXI_awcache[3:0] = auto_pc_to_s00_couplers_AWCACHE;
   assign M_AXI_awid[11:0] = auto_pc_to_s00_couplers_AWID;
   assign M_AXI_awlen[7:0] = auto_pc_to_s00_couplers_AWLEN;
-  assign M_AXI_awlock[0] = auto_pc_to_s00_couplers_AWLOCK;
+  assign M_AXI_awlock = auto_pc_to_s00_couplers_AWLOCK;
   assign M_AXI_awprot[2:0] = auto_pc_to_s00_couplers_AWPROT;
   assign M_AXI_awsize[2:0] = auto_pc_to_s00_couplers_AWSIZE;
   assign M_AXI_awvalid = auto_pc_to_s00_couplers_AWVALID;
